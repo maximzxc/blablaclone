@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+{% load django_markdown  %}
+
+
+
+{% block title %}User detail{% endblock title %}
+
+{% block content %}
+
+<h2 class="text-center">
+    User detail
+</h2>
+
+<br/>
+
+
+
+    <div>
+<b>Email</b>: {{object.email}}
+    </div>
+    <div>
+<b>Name</b>: {{object.name}}
+    </div>
+    <div>
+<b>Surname</b>: {{object.surname}}
+    </div>
+    <div>
+<b>Car</b>: {{object.car}}
+    </div>
+    <div>
+<b>Phone</b>: {{object.phone}}
+    </div>
+    <div>
+<b>Birthdate</b>:     {{object.birthdate|date}}
+    </div>
+    <div>
+<b>About</b>: {{object.about}}
+    </div>
+    <div>
+    {% thumbnail object.photo "400x300" as im %}
+    {% thumbnail object.photo "800x600" as im2 %}
+    <img src="{{ im.url }}" data-at2x="{{ im2.url }}" class="img-responsive" >
+    {% endthumbnail %}
+    {% endthumbnail %}
+    </div>
+
+
+
+
+{% endblock content %}

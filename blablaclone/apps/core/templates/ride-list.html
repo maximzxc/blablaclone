@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+{% load django_markdown  %}
+{% load crispy_forms_tags %}
+
+{% block title %}Ride list{% endblock title %}
+
+{% block content %}
+
+<h1>Ride list</h1>
+<br/>
+<div class="actions">
+<a class="btn btn-warning" href="{% url "user-update"   %}"> 
+    User update
+</a>
+</div>
+<br/>
+
+
+<div class="search-block">
+{% crispy filter.form %}
+</div>
+<br/>
+
+
+{% if not object_list %}
+<p>
+Nothing is found.
+</p>
+
+{% endif %}
+{% for object in object_list %}
+<div class="col-sm-12 item list-group-item">
+<div>
+
+    <div>
+<b>From city</b>: {{object.from_city}}
+    </div>
+    <div>
+<b>To city</b>: {{object.to_city}}
+    </div>
+    <div>
+<b>Departure time</b>:     {{object.departure_time|date}}
+    </div>
+    <div>
+<b>Will visit</b>:     {% for item in object.will_visit.all %}
+        {{item}}
+    {% endfor %}
+    </div>
+    <div>
+<b>Free places</b>: {{object.free_places}}
+    </div>
+    <div>
+<b>Driver</b>: {{object.driver}}
+    </div>
+    <div>
+<b>Passangers</b>:     {% for item in object.passangers.all %}
+        {{item}}
+    {% endfor %}
+    </div>
+    <div>
+<b>Price</b>: ${{object.price}}
+    </div>
+    <div>
+<h4>{{object.title}}
+</h4>    </div>
+
+<div class="actions">
+
+
+
+    <a class="btn btn-primary" href="{% url "user-detail" object.pk %}">User detail</a>
+
+
+
+    <a class="btn btn-primary" href="{% url "riderequest-create" object.pk %}">RideRequest create</a>
+
+
+
+
+
+
+
+
+
+
+</div></div>
+</div>
+{% endfor %}
+
+
+<div class="widget-footer bordered">
+    {% include "paginator.html" %}
+</div>
+
+{% endblock content %}

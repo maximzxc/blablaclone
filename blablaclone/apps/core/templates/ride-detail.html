@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+{% load django_markdown  %}
+
+
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block content %}
+
+<h2 class="text-center">
+    {{ object.title }}
+</h2>
+
+<br/>
+
+<div class="actions">
+<a class="btn btn-info" href="{% url "riderequest-create"    object.slug   %}"> 
+    RideRequest create
+</a>
+</div>
+<br/>
+
+
+    <div>
+<b>From city</b>: {{object.from_city}}
+    </div>
+    <div>
+<b>To city</b>: {{object.to_city}}
+    </div>
+    <div>
+<b>Departure time</b>:     {{object.departure_time|date}}
+    </div>
+    <div>
+<b>Will visit</b>:     {% for item in object.will_visit.all %}
+        {{item}}
+    {% endfor %}
+    </div>
+    <div>
+<b>Free places</b>: {{object.free_places}}
+    </div>
+    <div>
+<b>Driver</b>: {{object.driver}}
+    </div>
+    <div>
+<b>Passangers</b>:     {% for item in object.passangers.all %}
+        {{item}}
+    {% endfor %}
+    </div>
+    <div>
+<b>Price</b>: ${{object.price}}
+    </div>
+
+
+
+
+{% endblock content %}
